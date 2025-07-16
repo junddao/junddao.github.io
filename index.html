@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Deep Link 테스트</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: white;
+      }
+
+      .container {
+        text-align: center;
+        padding: 2rem;
+        max-width: 600px;
+        width: 90%;
+      }
+
+      h1 {
+        margin-bottom: 2rem;
+        font-size: 2.5rem;
+        font-weight: 300;
+      }
+
+      .deep-link-btn {
+        background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+        border: none;
+        color: white;
+        padding: 1rem 3rem;
+        font-size: 1.2rem;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        min-width: 200px;
+      }
+
+      .deep-link-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+      }
+
+      .deep-link-btn:active {
+        transform: translateY(-1px);
+      }
+
+      .url-input-container {
+        margin: 2rem 0;
+        width: 100%;
+      }
+
+      .url-input {
+        width: 100%;
+        padding: 0.8rem 1rem;
+        border: none;
+        border-radius: 25px;
+        font-size: 1rem;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.9);
+        margin-bottom: 1rem;
+      }
+
+      .url-input:focus {
+        outline: none;
+        background: white;
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+      }
+
+      .info {
+        margin-top: 2rem;
+        font-size: 0.9rem;
+        opacity: 0.8;
+        line-height: 1.6;
+      }
+
+      .status {
+        margin-top: 1rem;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        display: none;
+      }
+
+      .status.success {
+        background: rgba(46, 204, 113, 0.3);
+        border: 1px solid #2ecc71;
+      }
+
+      .status.error {
+        background: rgba(231, 76, 60, 0.3);
+        border: 1px solid #e74c3c;
+      }
+
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 2rem;
+        }
+
+        .deep-link-btn {
+          padding: 0.8rem 2rem;
+          font-size: 1rem;
+        }
+
+        .container {
+          padding: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Deep Link 테스트</h1>
+
+      <div class="url-input-container">
+        <input
+          type="text"
+          class="url-input"
+          id="deepLinkUrl"
+          placeholder="deep link URL을 입력하세요 (예: myapp://open)"
+          value="myapp://open"
+        />
+      </div>
+
+      <button class="deep-link-btn" onclick="openDeepLink()">
+        앱 실행하기
+      </button>
+
+      <div class="status" id="status"></div>
+
+      <div class="info">
+        <p>버튼을 클릭하면 설정된 deep link로 앱을 실행합니다.</p>
+        <p>앱이 설치되어 있지 않으면 브라우저에서 오류가 발생할 수 있습니다.</p>
+      </div>
+    </div>
+
+    <script>
+      function openDeepLink() {
+        const urlInput = document.getElementById("deepLinkUrl");
+        const statusDiv = document.getElementById("status");
+        const deepLinkUrl = urlInput.value.trim();
+
+        // 상태 메시지 초기화
+        statusDiv.style.display = "none";
+        statusDiv.className = "status";
+
+        if (!deepLinkUrl) {
+          showStatus("URL을 입력해주세요.", "error");
+          return;
+        }
+
+        try {
+          // Deep link 실행
+          window.location.href = deepLinkUrl;
+
+          // 성공 메시지 (실제로는 앱이 실행되면서 페이지를 떠날 수 있음)
+          showStatus("Deep link 실행 중...", "success");
+
+          // 2초 후에도 페이지에 있다면 앱이 실행되지 않았을 가능성
+          setTimeout(() => {
+            showStatus(
+              "앱이 실행되지 않았습니다. 앱이 설치되어 있는지 확인해주세요.",
+              "error"
+            );
+          }, 2000);
+        } catch (error) {
+          showStatus(
+            "Deep link 실행 중 오류가 발생했습니다: " + error.message,
+            "error"
+          );
+        }
+      }
+
+      function showStatus(message, type) {
+        const statusDiv = document.getElementById("status");
+        statusDiv.textContent = message;
+        statusDiv.className = "status " + type;
+        statusDiv.style.display = "block";
+      }
+
+      // Enter 키로도 실행 가능하도록
+      document
+        .getElementById("deepLinkUrl")
+        .addEventListener("keypress", function (e) {
+          if (e.key === "Enter") {
+            openDeepLink();
+          }
+        });
+    </script>
+  </body>
+</html>
