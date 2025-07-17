@@ -7,12 +7,7 @@
           "W5NS9RGJEM.com.cupix.capture.vista.dev"
         ],
         "paths": [
-          "*"
-        ],
-        "components": [
-          {
-            "/": "/*"
-          }
+          "/miro_deeplink_test/*"
         ]
       }
     ]
