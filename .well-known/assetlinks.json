@@ -2,7 +2,7 @@
   {
     "relation": ["delegate_permission/common.handle_all_urls"],
     "target": {
-      "namespace": "com.cupix.vista",
+      "namespace": "android_app",
       "package_name": "com.cupix.capture.vista.dev",
       "sha256_cert_fingerprints": [
         "F6:B7:31:77:BA:B9:E8:7D:BF:D1:8D:41:14:AB:0B:DB:B7:06:E3:97:DE:D2:3F:D5:F6:B7:2D:C9:FB:7A:36:4D",
