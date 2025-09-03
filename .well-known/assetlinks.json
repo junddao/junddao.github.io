@@ -2,10 +2,11 @@
   {
     "relation": ["delegate_permission/common.handle_all_urls"],
     "target": {
-      "namespace": "android_app",
+      "namespace": "com.cupix.vista",
       "package_name": "com.cupix.capture.vista.dev",
       "sha256_cert_fingerprints": [
-        "F6:B7:31:77:BA:B9:E8:7D:BF:D1:8D:41:14:AB:0B:DB:B7:06:E3:97:DE:D2:3F:D5:F6:B7:2D:C9:FB:7A:36:4D"
+        "F6:B7:31:77:BA:B9:E8:7D:BF:D1:8D:41:14:AB:0B:DB:B7:06:E3:97:DE:D2:3F:D5:F6:B7:2D:C9:FB:7A:36:4D",
+        "DD:87:52:E2:34:A1:C8:C0:8D:5C:E5:B0:9D:E3:C1:DF:89:5C:C3:9B:03:40:DC:83:C1:B5:5C:7E:7C:9D:2A:78"
       ]
     }
   }
